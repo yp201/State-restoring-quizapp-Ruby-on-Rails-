@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subgenre_id: MyString
+  ranklist: MyText
+
+two:
+  subgenre_id: MyString
+  ranklist: MyText

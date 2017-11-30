@@ -1,0 +1,133 @@
+<div class="container-fluid" style="margin-left:10px">
+	USERNAME:<%= @user.name %>
+	<br/>
+	EMAIL:<%= @user.email %><br/>
+	<!-- <div class="breadcrumb"></div> -->
+
+
+
+<% if current_user== @user %>
+<!-- 	<%= getongoingquiz(@user.id) %>	 -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+<script>
+	takenQuizzes= <%= raw taken_quizzes(@user.id) %>;
+
+</script>	
+	<div class="row">
+
+	  <div class="col-md-6">
+	  	<h2> Start a new quiz!</h2>
+	  	<label for="genre">select a genre:</label>
+	  	<!-- <br/> -->
+	  	<select id="genre" onchange="loadSubGenres($('#genre').val())" class="form-control" style="width:50%">
+	  		<% all_genres.each do |genres| %>
+	  			<option value="<%= genres.id %>" ><%= genres.name %> </option>
+				<%end %>
+	  	</select>
+	  	<label for="subgenre">select a subgenre:</label>
+	  	<select id="subgenre" class="form-control" style="width:50%">
+	  	</select>
+	  	<br/><br/>
+			<button type="button" class="btn btn-success btn-sm" onclick="newQuiz(<%= @user.id %>,$('#genre').val(),$('#subgenre').val(),)">Start Quiz</button> 
+	  </div>
+	  <div class="col-md-5" style="margin-left:80px">
+	  <br/>
+
+	  	<div class="panel panel-success">
+  			<div class="panel-heading"  style="text-align:center">Ongoing quizzes</div>
+
+  				<table class="table">
+  					<tr>
+		  		  <td><b>Genre</b></td>
+		  			<td><b>Subgenre</b></td>
+		  			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		  			</tr>
+	  				<% getongoingquiz(@user.id).each do |quiz| %>
+
+  					<tr>
+	  					<td><%= quiz.genre_name %></td>
+	  					<td><%= quiz.quizname %></td>
+	  					<td><form action="/quizzes/<%=quiz.id %>" method="GET"><button type="submit" class= "btn btn-primary btn-sm" >Start Quiz</button></form></td>
+	  			  </tr>
+				<%end %>
+
+
+  				</table>
+				</div>
+			</div>
+				
+	</div>
+	<div class="row">
+	  <div class="col-md-6">
+	  	<h2>Leaderboard</h2>
+		  	<div class="btn-group" role="group">
+	    		<button type="button" id="genre-heading" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">sports
+				</button>
+	    		<ul class="dropdown-menu" id="genres-list">
+    				<% all_genres.each do |genres| %>
+	  					<li><a id="<%= genres.id %>" onclick="panelHeading('<%= genres.name %>',<%= genres.id %>)"><%= genres.name %></a> </li>
+						<%end %>
+	    		</ul>
+	    	</div>
+	    		<div class="btn-group" role="group">
+	    		<button type="button" id="subgenre-heading" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    		</button>
+	    		<ul class="dropdown-menu" id="subgenres-list">
+	    			
+	   			</ul>
+	  			</div>
+	  </div>
+  </div>
+  <div class="row">
+  	<div class="col-md-6">
+  		<br/>
+  		<div class="panel panel-success">
+	  		<div class="panel-heading" id="panel-heading" style="text-align:center"></div>
+  				<table class="table" id="ranklist"></table>
+		</div>
+	</div>
+  	<div class="col-md-6">
+ 	<br/>
+  		<div class="panel panel-success">
+	  		<div class="panel-heading" style="text-align:center">Previous quizzes</div>
+  				<table class="table" id="previous"></table>
+		</div>
+	</div>
+</div>
+  <div class="row">
+  	  	<div class="col-md-6">
+
+  		<div class="panel panel-success">
+  		<div class="panel-heading" style="text-align:center">Pie-Analysis</div>
+		  	<div id="chart_div"></div>
+  		</div>
+  	</div>
+  	<div class="col-md-6">
+
+  		<div class="panel panel-success">
+  		<div class="panel-heading" style="text-align:center">Bar-Analysis</div>
+		  	<div id="chart1_div"></div>
+  		</div>
+  	</div>
+  </div>
+<%end %>
+</div>
+<script>
+leaderboard_genre= <%= raw ranklist_genre() %>;
+leaderboard_subgenre= <%= raw ranklist_subgenre() %>;
+userList= <%= raw userlist() %>;
+genreList= <%= raw genrelist() %>;
+subgenreList= <%= raw subgenrelist() %>;
+
+
+$(document).on('turbolinks:load',function()
+{
+	loadSubGenres('1');
+	rankListSubgenre('0');
+	previous();
+	graph();
+});
+</script>

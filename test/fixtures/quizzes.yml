@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: MyString
+  genre_id: MyString
+  subgenre_id: MyString
+  score: 1
+  ongoing: false
+  current_question: 1
+
+two:
+  user_id: MyString
+  genre_id: MyString
+  subgenre_id: MyString
+  score: 1
+  ongoing: false
+  current_question: 1

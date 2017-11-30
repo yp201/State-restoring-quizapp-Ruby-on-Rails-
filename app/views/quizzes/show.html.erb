@@ -1,0 +1,67 @@
+<% if logged_in? %>
+<% if @quiz.user_id.to_i == current_user.id.to_i %>
+<script>
+
+  quizId = <%= @quiz.id%>
+  current_question = <%= @quiz.current_question%>
+  all_questions = <%= raw all_questions(@quiz.subgenre_id) %>;
+  score= <%= @quiz.score%>
+
+</script>
+
+
+<div id="quiz" style="margin-left:10px;">
+  <div class="row">
+    <div class="col-md-6">
+      <h1 id="quiz-name"><%= @quiz.quizname %></h1>
+    </div>
+    <div class="col-md-6">
+     <h1 id="score" ></span>
+    </div>
+  </div>
+  <div id="question">
+    <span id="ques"></span><br/><br/>
+    <div class="row">
+  		<div class="checkbox">
+        <input type="checkbox" value="1" id="checkbox-1" name="answer"><label for="checkbox-1" id="1"></label>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" value="2" id="checkbox-2"name="answer"><label for="checkbox-2" id="2"></label>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" value="3" id="checkbox-3" name="answer"><label for="checkbox-3" id="3"></label>
+      </div>
+      <div class="checkbox">
+        <input type="checkbox" value="4" id="checkbox-4" name="answer"><label for="checkbox-4" id="4"></label>
+      </div>
+      &nbsp;&nbsp;
+      <button class="btn btn-danger" id="skip" onclick="skipQuestion()">Skip-Question</button>
+      &nbsp;&nbsp;
+      <button class="btn btn-danger"  id="fifty" onclick="fifty50()">50-50</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success"  onclick="getAnswers()">Submit</button>
+    </div>
+  	<br/>
+
+  <div id="quiz-results">
+    <p id="quiz-results-message"></p>
+    <p id="quiz-results-score"></p>
+  </div>  
+</div>
+
+<script >
+$(document).ready(function()
+  {
+    displayQuestion(current_question)
+  });
+    $('#score').html("SCORE: "+score);
+
+</script>
+  <% else %>
+    <script>
+      window.location=""
+      window.location= "/users/<%= current_user.id %>"
+    </script>
+  <%end %>
+<% else %>
+ <%= link_to "Log in", login_path %></li>
+<% end %>
