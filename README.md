@@ -1,28 +1,11 @@
-== README
+== QUIZAPP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A state restoring  Quiz app, has single correct,more than one correct type and powerUps.Enjoy.Feel free to contribute and raise issues.
 
-Things you may want to cover:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
+* Ruby verison : 4
+* It has a test database
 * Deployment instructions
+** bundle install
+** rails s
 
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
